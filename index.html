@@ -4,19 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DGC ESPORTS ID GENERATOR — Official Cyan / Dark Teal Template</title>
-<link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.0.5/dist/tesseract.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <style>
 :root{
   --cyan:#14e3e3; --cyan-l:#9be8e4; --teal:#0d5f5f; --black:#060a0a; --white:#ffffff;
-  --ios-font:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
 }
 *{box-sizing:border-box; margin:0; padding:0;}
 body{
-  font-family:'Rajdhani',sans-serif; color:#e8f4f3; min-height:100dvh;
+  font-family:'Rajdhani',sans-serif; color:#e8f4f3; min-height:100vh;
   background:
     radial-gradient(1200px 600px at 80% -10%, rgba(20,227,227,.12), transparent 60%),
     radial-gradient(900px 700px at -10% 110%, rgba(13,95,95,.30), transparent 60%),
@@ -45,55 +44,44 @@ main{display:grid;grid-template-columns:minmax(360px,460px) 1fr;gap:26px;padding
 .drop .big{font-family:'Orbitron';font-size:12px;letter-spacing:3px;color:var(--cyan-l);}
 .drop .small{font-size:12px;opacity:.7;margin-top:4px;}
 .btn{font-family:'Orbitron';letter-spacing:2px;font-size:11px;font-weight:700;border:none;cursor:pointer;border-radius:5px;
-  padding:10px 16px;min-height:44px;color:#062b2d;background:linear-gradient(135deg,#c9fbf8,#14e3e3 60%,#0ec4c4);
+  padding:10px 16px;color:#062b2d;background:linear-gradient(135deg,#c9fbf8,#14e3e3 60%,#0ec4c4);
   box-shadow:0 4px 14px rgba(20,227,227,.35);transition:.15s;}
 .btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(20,227,227,.5);}
-.btn:active{transform:translateY(0);}
 .btn.ghost{background:transparent;color:var(--cyan-l);border:1px solid rgba(155,232,228,.5);box-shadow:none;}
 .btn.ghost:hover{border-color:var(--cyan-l);box-shadow:0 0 12px rgba(155,232,228,.25);}
 .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
-label.f{display:block;font-family:var(--ios-font);font-size:13px;letter-spacing:.2px;color:var(--cyan-l);margin:10px 0 5px;font-weight:600;}
-input[type=text],textarea{width:100%;background:rgba(4,18,17,.8);border:1px solid rgba(155,232,228,.3);border-radius:8px;
-  color:#fff;font-family:var(--ios-font);font-size:16px;font-weight:400;letter-spacing:0;line-height:1.5;padding:10px 12px;outline:none;transition:.15s;}
-input[type=text]{min-height:44px;}
-input[type=text]:focus,textarea:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(20,227,227,.2);}
-textarea{min-height:112px;resize:vertical;}
-input[type=range]{width:100%;min-height:28px;accent-color:var(--cyan);}
-.check{display:flex;align-items:center;gap:9px;margin-top:12px;font-family:var(--ios-font);font-size:14px;letter-spacing:0;line-height:1.5;cursor:pointer;min-height:44px;}
-.check input{accent-color:var(--cyan);width:18px;height:18px;flex:0 0 auto;}
-.status{font-family:var(--ios-font);font-size:13px;letter-spacing:0;line-height:1.5;color:var(--cyan-l);min-height:16px;margin-top:8px;}
+label.f{display:block;font-size:11px;letter-spacing:2px;color:var(--cyan-l);margin:10px 0 4px;font-weight:600;}
+input[type=text],textarea{width:100%;background:rgba(4,18,17,.8);border:1px solid rgba(155,232,228,.3);border-radius:5px;
+  color:#fff;font-family:'Rajdhani';font-size:15px;font-weight:600;letter-spacing:1px;padding:9px 11px;outline:none;transition:.15s;}
+input[type=text]:focus,textarea:focus{border-color:var(--cyan);box-shadow:0 0 0 2px rgba(20,227,227,.2);}
+textarea{min-height:88px;resize:vertical;}
+input[type=range]{width:100%;accent-color:var(--cyan);}
+.check{display:flex;align-items:center;gap:9px;margin-top:12px;font-size:13px;letter-spacing:1px;cursor:pointer;}
+.check input{accent-color:var(--cyan);width:16px;height:16px;}
+.status{font-size:12px;letter-spacing:1px;color:var(--cyan-l);min-height:16px;margin-top:8px;}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 12px;}
-#parseBtn{font-family:var(--ios-font);font-size:14px;font-weight:600;letter-spacing:0;}
 #previewCol{position:sticky;top:16px;}
 #stageWrap{display:flex;flex-direction:column;align-items:center;gap:12px;}
 #stage{transform-origin:top center;}
-#card{position:relative;width:min(470px,calc(100vw - 84px));aspect-ratio:1410/2000;user-select:none;isolation:isolate;}
-.template-img,#card>svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
-.template-base{z-index:0;}
-#photoLayer{position:absolute;inset:0;z-index:1;overflow:hidden;cursor:grab;display:none;
-  clip-path:polygon(18.16% 9.6%,71.42% 9.6%,71.42% 39.3%,76.03% 42.6%,75.89% 71.9%,69.01% 76.8%,69.01% 85.4%,65.25% 80%,60.21% 76.2%,39.93% 76.2%,35.18% 79.4%,18.16% 79.4%);
+#card{position:relative;width:470px;height:666.7px;user-select:none;}
+#card svg{position:absolute;inset:0;width:100%;height:100%;}
+/* photo window = x256-1267 y192-1738 on 1410x2000 artboard */
+#photoLayer{
+  position:absolute;left:18.16%;top:9.6%;width:71.7%;height:77.3%;
+  border-radius:3.8%;overflow:hidden;
+  background:linear-gradient(180deg,#c2e7ff 0%,#e6f6ff 55%,#f4fdff 100%);
+  cursor:grab;
+  clip-path:polygon(0% 0%, 74.7% 0%, 74.4% 38.4%, 80.7% 42.7%, 80.5% 80.7%, 70.9% 86.9%, 65.7% 91.2%, 58.7% 85.6%, 30.4% 85.6%, 23.7% 90.3%, 0% 90.3%);
 }
 #photoLayer.dragging{cursor:grabbing;}
-.template-frame{z-index:2;}
-#svgFront{z-index:3;}
-#zoomRow{display:flex;align-items:center;gap:12px;width:min(470px,calc(100vw - 84px));}
+#photoLayer .ph{font-family:'Orbitron';font-size:10px;letter-spacing:3px;color:rgba(13,95,95,.55);text-align:center;pointer-events:none;line-height:2;}
+#zoomRow{display:flex;align-items:center;gap:12px;width:470px;}
 .zoomlbl{font-family:'Orbitron';font-size:10px;letter-spacing:2px;color:var(--cyan-l);white-space:nowrap;}
-.dl{width:min(470px,calc(100vw - 84px));padding:14px;font-size:13px;}
-.hint{font-family:var(--ios-font);font-size:12px;opacity:.72;letter-spacing:0;line-height:1.55;}
+.dl{width:470px;padding:14px;font-size:13px;}
+.hint{font-size:11px;opacity:.65;letter-spacing:1px;line-height:1.5;}
 .sep{height:1px;background:rgba(155,232,228,.15);margin:14px 0;}
-:focus-visible{outline:2px solid var(--cyan-l);outline-offset:3px;}
-@media(max-width:600px){
-  header{padding:20px 16px 8px;gap:12px;}
-  main{padding:16px 12px 36px;gap:12px;}
-  .panel{padding:16px 14px 18px;}
-  .grid2{grid-template-columns:1fr;}
-  #previewCol{position:static;}
-  #card,#zoomRow,.dl{width:min(470px,calc(100vw - 56px));}
-  h1{letter-spacing:3px;}
-  .sub{letter-spacing:1.5px;}
-}
-@media(prefers-reduced-motion:reduce){*{transition:none!important;}}
 </style>
+<base target="_blank">
 </head>
 <body>
 <header>
@@ -110,7 +98,7 @@ input[type=range]{width:100%;min-height:28px;accent-color:var(--cyan);}
   <section>
     <div class="panel">
       <h2>01 · PLAYER PHOTO</h2>
-      <div class="drop" id="photoDrop" role="button" tabindex="0" aria-label="Upload player photo">
+      <div class="drop" id="photoDrop">
         <div class="big">DRAG &amp; DROP PHOTO</div>
         <div class="small">JPG · JPEG · PNG · WEBP — or click to browse</div>
       </div>
@@ -131,29 +119,35 @@ input[type=range]{width:100%;min-height:28px;accent-color:var(--cyan);}
 
     <div class="panel">
       <h2>02 · PLAYER DETAILS</h2>
-      <label class="f" for="pasteBox">INSERT PLAYER DETAILS</label>
-      <textarea id="pasteBox" placeholder="NAME: REINAYANNE&#10;ID NUMBER: 269754640&#10;ADDRESS: PHILIPPINES&#10;ISSUE DATE: 2025FEB28&#10;BIRTHDATE: FEBRUARY28&#10;ROLES: MC | JUNGLER | GOLD LANER"></textarea>
+      <div class="drop" id="docDrop">
+        <div class="big">UPLOAD DETAILS FILE</div>
+        <div class="small">JPG · PNG · WEBP · PDF · TXT — OCR auto-extraction</div>
+      </div>
+      <input type="file" id="docInput" accept=".jpg,.jpeg,.png,.webp,.pdf,.txt" hidden>
+      <div class="sep"></div>
+      <label class="f">OR PASTE PLAYER DETAILS</label>
+      <textarea id="pasteBox" placeholder="NAME: REINAYANNE&#10;ID NUMBER: 269754640&#10;ADDRESS: PHILIPPINES&#10;ISSUE DATE: 2025FEB28&#10;BIRTHDATE: 2004MAR07&#10;ROLES: MC | JUNGLER | GOLD LANER"></textarea>
       <div class="btnrow">
         <button class="btn" id="parseBtn">EXTRACT &amp; FILL</button>
       </div>
-      <div class="status" id="docStatus" role="status" aria-live="polite"></div>
+      <div class="status" id="docStatus"></div>
     </div>
 
     <div class="panel">
       <h2>03 · REVIEW &amp; EDIT FIELDS</h2>
-      <label class="f" for="fName">PLAYER NAME</label><input type="text" id="fName" value="REINAYANNE">
+      <label class="f">PLAYER NAME</label><input type="text" id="fName" value="REINAYANNE">
       <div class="grid2">
-        <div><label class="f" for="fId">ID NUMBER</label><input type="text" id="fId" value="269754640"></div>
-        <div><label class="f" for="fBirth">BIRTHDATE</label><input type="text" id="fBirth" placeholder="YYYYMONDD" value="FEBRUARY28"></div>
+        <div><label class="f">ID NUMBER</label><input type="text" id="fId" value="269754640"></div>
+        <div><label class="f">BIRTHDATE</label><input type="text" id="fBirth" placeholder="YYYYMONDD" value="2004MAR07"></div>
       </div>
-      <label class="f" for="fAddr">ADDRESS</label><input type="text" id="fAddr" value="PHILIPPINES">
+      <label class="f">ADDRESS</label><input type="text" id="fAddr" value="PHILIPPINES">
       <div class="grid2">
-        <div><label class="f" for="fIssue">ISSUE DATE</label><input type="text" id="fIssue" placeholder="YYYYMONDD" value="2025FEB28"></div>
-        <div><label class="f" for="fRoles">PLAYER ROLES</label><input type="text" id="fRoles" value="MC | JUNGLER | GOLD LANER"></div>
+        <div><label class="f">ISSUE DATE</label><input type="text" id="fIssue" placeholder="YYYYMONDD" value="2025FEB28"></div>
+        <div><label class="f">PLAYER ROLES</label><input type="text" id="fRoles" value="MC | JUNGLER | GOLD LANER"></div>
       </div>
       <div class="sep"></div>
-      <label class="check"><input type="checkbox" id="showQr" checked> SHOW VERIFICATION QR CODE</label>
-      <label class="f" for="qrUrl">QR CODE URL / DATA</label>
+      <label class="check"><input type="checkbox" id="showQr"> SHOW VERIFICATION QR CODE</label>
+      <label class="f">QR CODE URL / DATA</label>
       <input type="text" id="qrUrl" value="https://dexterousgamers.community/verify?id=269754640">
       <div class="hint" style="margin-top:10px;">All fields update the live ID instantly. Dates use the YYYYMONDD format (e.g. 2025FEB28). The ID shows BIRTHDATE — no expiration date is used anywhere.</div>
     </div>
@@ -166,29 +160,72 @@ input[type=range]{width:100%;min-height:28px;accent-color:var(--cyan);}
       <div id="stageWrap">
         <div id="stage">
           <div id="card">
-            <img class="template-img template-base" src="assets/template-clean.png" alt="" draggable="false">
-            <div id="photoLayer" aria-label="Player photo crop area"></div>
-            <img class="template-img template-frame" src="assets/template-frame.png" alt="" draggable="false">
-            <svg id="svgFront" viewBox="0 0 1410 2000" xmlns="http://www.w3.org/2000/svg" aria-label="Generated esports ID preview">
-              <g id="frontText" font-family="Orbitron, sans-serif" fill="#f4fbff">
-                <text id="tId" transform="translate(1174 192) rotate(90)" font-size="30" font-weight="400" letter-spacing="4">269754640</text>
-                <text id="tAddr" transform="translate(1047 192) rotate(90)" font-size="30" font-weight="400" letter-spacing="3">PHILIPPINES</text>
-                <text id="tIssue" transform="translate(1174 592) rotate(90)" font-size="30" font-weight="400" letter-spacing="3">2025FEB28</text>
-                <text id="tBirth" transform="translate(1174 984) rotate(90)" font-size="30" font-weight="400" letter-spacing="3">FEBRUARY28</text>
-                <text id="tName" x="216" y="1759" font-size="64" font-weight="700" letter-spacing="11.4">REINAYANNE</text>
-                <text id="tRoles" x="216" y="1832" font-size="30" font-weight="500" letter-spacing="4">MC | JUNGLER | GOLD LANER</text>
+            <svg id="svgBack" viewBox="0 0 1410 2000" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#c2e7ff"/><stop offset=".55" stop-color="#e6f6ff"/><stop offset="1" stop-color="#f4fdff"/>
+                </linearGradient>
+                <radialGradient id="sunGrad"><stop offset="0" stop-color="rgba(255,255,255,.95)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/></radialGradient>
+              </defs>
+              <!-- PHOTO ART (bottom layer, masked by cyan + teal) -->
+              <g id="photoArt">
+                <rect x="256" y="192" width="1011" height="1546" rx="38" fill="url(#skyGrad)"/>
+                <circle cx="620" cy="415" r="170" fill="url(#sunGrad)"/>
+                <g fill="#ffffff">
+                  <circle cx="620" cy="420" r="100"/>
+                  <circle cx="495" cy="467" r="66"/>
+                  <circle cx="757" cy="477" r="56"/>
+                  <ellipse cx="620" cy="507" rx="152" ry="52"/>
+                </g>
+                <path d="M 256 1245 Q 550 1300 820 1315 Q 1080 1340 1267 1450 L 1267 1738 L 256 1738 Z" fill="#c5e083"/>
+                <path d="M 256 1530 Q 480 1410 760 1382 Q 1000 1380 1267 1440 L 1267 1738 L 256 1738 Z" fill="#86a201"/>
               </g>
-              <rect id="qrBg" x="197" y="194" width="121" height="121" fill="#ffffff" visibility="hidden"/>
-              <image id="qrImg" x="204" y="201" width="107" height="107" visibility="hidden"/>
+              <!-- CYAN BACK LAYER -->
+              <g id="cyanLayer" fill="#14e3e3">
+                <path d="M 822 55 L 681 55 L 630 111 L 324 111 L 270 55 L 189 55 L 131 113 L 128 449 L 201 514 L 201 820 L 128 884 L 128 1089 L 228 1210 L 256 1198 L 256 192 L 822 192 Z"/>
+              </g>
+              <!-- DARK TEAL FRONT LAYER -->
+              <g id="tealLayer" fill="#0d5f5f">
+                <path d="M 1007 70 L 1008 786 L 1072 852 L 1070 1440 L 973 1536 L 972 1749 L 1165 1963 L 1265 1964 L 1306 146 L 1202 45 Z"/>
+                <path d="M 129 1650 L 129 1911 L 174 1966 L 336 1963 L 399 1900 L 850 1900 L 913 1963 L 1096 1964 L 919 1772 L 920 1600 L 849 1524 L 563 1524 L 496 1588 L 191 1588 Z"/>
+              </g>
+            </svg>
+            <div id="photoLayer">
+              <div class="ph">PLAYER<br>PHOTO</div>
+            </div>
+            <svg id="svgFront" viewBox="0 0 1410 2000" xmlns="http://www.w3.org/2000/svg">
+              <g id="frontText" font-family="Orbitron, sans-serif">
+                <text transform="translate(232 1005) rotate(-90)" fill="#ffffff" font-size="20" font-weight="700" letter-spacing="4">ESPORTS PLAYER</text>
+                <g transform="translate(1120 250) rotate(90)">
+                  <text x="0"   y="0" fill="#9be8e4" font-size="18" font-weight="500" letter-spacing="4">ID NUMBER</text>
+                  <text id="tId"    x="58"  y="0" fill="#ffffff" font-size="28" font-weight="700" letter-spacing="2">269754640</text>
+                  <text x="210" y="0" fill="#9be8e4" font-size="18" font-weight="500" letter-spacing="4">ADDRESS</text>
+                  <text id="tAddr"  x="268" y="0" fill="#ffffff" font-size="26" font-weight="700" letter-spacing="2">PHILIPPINES</text>
+                  <text x="436" y="0" fill="#9be8e4" font-size="18" font-weight="500" letter-spacing="4">ISSUE DATE</text>
+                  <text id="tIssue" x="494" y="0" fill="#ffffff" font-size="26" font-weight="700" letter-spacing="2">2025FEB28</text>
+                  <text x="662" y="0" fill="#9be8e4" font-size="18" font-weight="500" letter-spacing="4">BIRTHDATE</text>
+                  <text id="tBirth" x="720" y="0" fill="#ffffff" font-size="26" font-weight="700" letter-spacing="2">2004MAR07</text>
+                </g>
+                <text x="285" y="1612" fill="#9be8e4" font-size="20" font-weight="700" letter-spacing="8">NAME</text>
+                <text id="tName" x="285" y="1672" fill="#ffffff" font-size="56" font-weight="900" letter-spacing="3">REINAYANNE</text>
+                <text id="tRoles" x="285" y="1770" fill="#bfefe9" font-size="22" font-weight="600" letter-spacing="4">MC | JUNGLER | GOLD LANER</text>
+              </g>
+              <image id="logoImg" x="700" y="1560" width="140" height="140" visibility="hidden"/>
+              <g id="logoFallback" font-family="Orbitron, sans-serif" visibility="hidden">
+                <circle cx="770" cy="1630" r="50" fill="none" stroke="#9be8e4" stroke-width="4"/>
+                <text x="770" y="1645" fill="#ffffff" font-size="38" font-weight="900" text-anchor="middle">DG</text>
+                <text x="770" y="1722" fill="#9be8e4" font-size="15" font-weight="700" letter-spacing="4" text-anchor="middle">DEXTEROUS</text>
+              </g>
+              <image id="qrImg" x="151" y="73" width="86" height="86" visibility="hidden"/>
             </svg>
           </div>
         </div>
         <div id="zoomRow">
           <span class="zoomlbl">PREVIEW ZOOM</span>
-          <input type="range" id="pvZoom" min="0.35" max="1.1" step="0.01" value="0.85" aria-label="Preview zoom">
+          <input type="range" id="pvZoom" min="0.35" max="1.1" step="0.01" value="0.85">
         </div>
         <button class="btn dl" id="downloadBtn">&#8681;&nbsp; DOWNLOAD ID — TRANSPARENT PNG</button>
-        <div class="status" id="dlStatus" role="status" aria-live="polite"></div>
+        <div class="status" id="dlStatus"></div>
       </div>
     </div>
   </section>
@@ -196,19 +233,47 @@ input[type=range]{width:100%;min-height:28px;accent-color:var(--cyan);}
 <script>
 /* ============================================================
    DGC ESPORTS ID GENERATOR — OFFICIAL CYAN / DARK TEAL TEMPLATE
-   Static artwork comes directly from the supplied 1410 × 2000 template.
+   Geometry measured pixel-exact from the official template.
    ============================================================ */
 'use strict';
 
-const PHOTO_RECT={x:256,y:192,w:816,h:1516};
-const PHOTO_PATH='M 256 192 L 1007 192 L 1007 786 L 1072 852 L 1070 1438 L 973 1536 L 973 1708 L 920 1600 L 849 1524 L 563 1524 L 496 1588 L 256 1588 Z';
-const QR_BOX={x:197,y:194,s:121,pad:7};
-const $=id=>document.getElementById(id);
-const state={photo:null,photoImg:null,zoom:1,panX:0,panY:0,dirty:{},qrCanvas:null,fs:{},baseImg:null,frameImg:null};
+const CYAN = '#14e3e3';
+const TEAL = '#0d5f5f';
+const PHOTO_RECT = {x:256, y:192, w:1011, h:1546, r:38};
 
-function loadTemplateImages(){
-  const load=src=>new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=reject;im.src=src;});
-  return Promise.all([load('assets/template-clean.png'),load('assets/template-frame.png')]).then(([base,frame])=>{state.baseImg=base;state.frameImg=frame;});
+const P = {
+  cyan: 'M 822 55 L 681 55 L 630 111 L 324 111 L 270 55 L 189 55 L 131 113 L 128 449 L 201 514 L 201 820 L 128 884 L 128 1089 L 228 1210 L 256 1198 L 256 192 L 822 192 Z',
+  tealRight:  'M 1007 70 L 1008 786 L 1072 852 L 1070 1440 L 973 1536 L 972 1749 L 1165 1963 L 1265 1964 L 1306 146 L 1202 45 Z',
+  tealBottom: 'M 129 1650 L 129 1911 L 174 1966 L 336 1963 L 399 1900 L 850 1900 L 913 1963 L 1096 1964 L 919 1772 L 920 1600 L 849 1524 L 563 1524 L 496 1588 L 191 1588 Z'
+};
+const SIDE = {tx:1120, ty:250, cols:[
+  {type:'lbl', text:'ID NUMBER',  x:0},
+  {type:'val', id:'tId',    x:58,  base:28, max:14},
+  {type:'lbl', text:'ADDRESS',    x:210},
+  {type:'val', id:'tAddr',  x:268, base:26, max:16},
+  {type:'lbl', text:'ISSUE DATE', x:436},
+  {type:'val', id:'tIssue', x:494, base:26, max:14},
+  {type:'lbl', text:'BIRTHDATE',  x:662},
+  {type:'val', id:'tBirth', x:720, base:26, max:14}
+]};
+const LOGO_URL = 'https://i.imgur.com/qZQxKje.png';
+const LOGO_BOX = {x:700, y:1560, w:140, h:140};
+const QR_BOX   = {x:151, y:73, s:86};
+
+const SVGNS='http://www.w3.org/2000/svg';
+const $=id=>document.getElementById(id);
+const state={photo:null,photoImg:null,zoom:1,panX:0,panY:0,dirty:{},qrCanvas:null,fs:{},logoReady:false};
+
+function loadLogo(){
+  const img=new Image();
+  img.crossOrigin='anonymous';
+  img.onload=()=>{state.logoReady=true;state.logoImg=img;
+    $('logoImg').setAttribute('href',LOGO_URL);
+    $('logoImg').setAttribute('visibility','visible');
+    $('logoFallback').setAttribute('visibility','hidden');};
+  img.onerror=()=>{$('logoImg').setAttribute('visibility','hidden');
+    $('logoFallback').setAttribute('visibility','visible');};
+  img.src=LOGO_URL;
 }
 
 /* ---------- PHOTO ---------- */
@@ -225,14 +290,21 @@ function loadPhoto(file){
   rd.readAsDataURL(file);
 }
 function renderPhoto(){
-  const layer=$('photoLayer');
-  if(!state.photo){layer.style.display='none';layer.style.backgroundImage='';return;}
-  layer.style.display='block';
-  const iw=state.photoImg.naturalWidth,ih=state.photoImg.naturalHeight;
-  const unit=$('card').clientWidth/1410,cw=PHOTO_RECT.w*unit,ch=PHOTO_RECT.h*unit;
-  const s=Math.max(cw/iw,ch/ih)*state.zoom,bw=iw*s,bh=ih*s;
-  const x=PHOTO_RECT.x*unit+(cw-bw)/2+state.panX/100*cw;
-  const y=PHOTO_RECT.y*unit+(ch-bh)/2+state.panY/100*ch;
+  const layer=$('photoLayer'), art=$('photoArt');
+  if(!state.photo){
+    layer.style.backgroundImage='';
+    layer.querySelector('.ph').style.display='block';
+    art.style.visibility='visible';
+    return;
+  }
+  art.style.visibility='hidden';
+  layer.querySelector('.ph').style.display='none';
+  const iw=state.photoImg.naturalWidth, ih=state.photoImg.naturalHeight;
+  const cw=layer.clientWidth, ch=layer.clientHeight;
+  const s=Math.max(cw/iw,ch/ih)*state.zoom;
+  const bw=iw*s, bh=ih*s;
+  const x=(cw-bw)/2 + state.panX/100*cw;
+  const y=(ch-bh)/2 + state.panY/100*ch;
   layer.style.backgroundImage='url('+state.photo+')';
   layer.style.backgroundSize=bw+'px '+bh+'px';
   layer.style.backgroundPosition=x+'px '+y+'px';
@@ -243,9 +315,8 @@ function resetCrop(){
   $('zoom').value=1;$('panX').value=0;$('panY').value=0;renderPhoto();
 }
 function wirePhoto(){
-  const dz=$('photoDrop'),inp=$('photoInput');
+  const dz=$('photoDrop'), inp=$('photoInput');
   dz.onclick=()=>inp.click();
-  dz.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();inp.click();}};
   inp.onchange=e=>{loadPhoto(e.target.files[0]);inp.value='';};
   ['dragover','dragenter'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add('over');}));
   ['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.remove('over');}));
@@ -256,16 +327,58 @@ function wirePhoto(){
   $('zoom').oninput=e=>{state.zoom=+e.target.value;renderPhoto();};
   $('panX').oninput=e=>{state.panX=+e.target.value;renderPhoto();};
   $('panY').oninput=e=>{state.panY=+e.target.value;renderPhoto();};
-  const layer=$('photoLayer');let drag=null;
+  const layer=$('photoLayer'); let drag=null;
   layer.addEventListener('pointerdown',e=>{if(!state.photo)return;
     drag={x:e.clientX,y:e.clientY,px:state.panX,py:state.panY};
     layer.setPointerCapture(e.pointerId);layer.classList.add('dragging');});
   layer.addEventListener('pointermove',e=>{if(!drag)return;
-    const unit=$('card').clientWidth/1410,k=100/(PHOTO_RECT.w*unit);
+    const k=100/layer.clientWidth;
     state.panX=Math.max(-100,Math.min(100,drag.px+(e.clientX-drag.x)*k));
     state.panY=Math.max(-100,Math.min(100,drag.py+(e.clientY-drag.y)*k));
     $('panX').value=state.panX;$('panY').value=state.panY;renderPhoto();});
   ['pointerup','pointercancel'].forEach(ev=>layer.addEventListener(ev,()=>{drag=null;layer.classList.remove('dragging');}));
+}
+
+/* ---------- DETAILS: OCR / PDF / TXT ---------- */
+let tsWorker=null;
+async function getWorker(status){
+  if(!window.Tesseract) throw new Error('OCR engine unavailable — paste details as text instead.');
+  if(!tsWorker){tsWorker=await Tesseract.createWorker('eng',1,{logger:m=>{
+    if(m.status==='recognizing text')status('OCR … '+Math.round((m.progress||0)*100)+'%');}});}
+  return tsWorker;
+}
+async function ocrImage(src,status){
+  const w=await getWorker(status);
+  const {data}=await w.recognize(src);
+  return (data.text||'').trim();
+}
+function fileToURL(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=e=>res(e.target.result);r.onerror=rej;r.readAsDataURL(file);});}
+async function extractPdf(file,status){
+  if(!window.pdfjsLib) throw new Error('PDF engine unavailable.');
+  pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  const pdf=await pdfjsLib.getDocument({data:await file.arrayBuffer()}).promise;
+  let out='';
+  for(let i=1;i<=pdf.numPages;i++){
+    status('Reading PDF page '+i+'/'+pdf.numPages+'…');
+    const page=await pdf.getPage(i);
+    const tc=await page.getTextContent();
+    let t=tc.items.map(it=>it.str).join(' ');
+    if(t.trim().length<12){
+      const vp=page.getViewport({scale:2});
+      const c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;
+      await page.render({canvasContext:c.getContext('2d'),viewport:vp}).promise;
+      t=await ocrImage(c,status);
+    }
+    out+=t+'\n';
+  }
+  return out.trim();
+}
+async function handleDoc(file,status){
+  const ext=(file.name.split('.').pop()||'').toLowerCase();
+  if(ext==='txt') return (await file.text()).trim();
+  if(ext==='pdf') return extractPdf(file,status);
+  if(['jpg','jpeg','png','webp'].includes(ext)) return ocrImage(await fileToURL(file),status);
+  throw new Error('Unsupported file type: '+ext);
 }
 
 /* ---------- INTELLIGENT PARSING ---------- */
@@ -275,7 +388,7 @@ const ALIASES={
   name:['player name','full name','ign','name'],
   id:['id number','id no','player id','member id','card id','id'],
   address:['residential address','address','location'],
-  issue:['issue date','issued date','date issued','date started'],
+  issue:['issue date','issued date','date issued'],
   birth:['birthdate','birth date','date of birth','dob','player birthdate'],
   roles:['main role','secondary role','roles','role','position']
 };
@@ -287,13 +400,17 @@ function parseDate(str){
   m=str.match(/([A-Za-z]+)\.?\s+(\d{1,2})(?:st|nd|rd|th)?,?\s+(\d{4})/);
   if(m){const mon=MONTH_NAMES[m[1].toLowerCase()];if(mon)return fmtDate(+m[3],MONTHS[mon],+m[2]);}
   m=str.match(/(\d{1,2})\s*[-/.]\s*(\d{1,2})\s*[-/.]\s*(\d{4})/);
-  if(m){const a=+m[1],b=+m[2];if(a>12)return fmtDate(+m[3],b,a);if(b>12)return fmtDate(+m[3],a,b);return fmtDate(+m[3],a,b);}
+  if(m){const a=+m[1],b=+m[2];
+    if(a>12)return fmtDate(+m[3],b,a);
+    if(b>12)return fmtDate(+m[3],a,b);
+    return fmtDate(+m[3],a,b);}
   m=str.match(/(\d{4})\s*(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)\s*(\d{2})/i);
   if(m)return (m[1]+m[2]+m[3]).toUpperCase();
   return String(str).trim().toUpperCase();
 }
 function parseDetails(text){
-  const lines=String(text).split(/\r?\n/).map(l=>l.trim()).filter(Boolean),out={};
+  const lines=String(text).split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
+  const out={};
   const norm=l=>l.toLowerCase().replace(/[:.\-]/g,' ').replace(/\s+/g,' ').trim();
   for(let i=0;i<lines.length;i++){
     const line=lines[i];
@@ -313,29 +430,30 @@ function parseDetails(text){
   return out;
 }
 function applyParsed(d){
-  const map={name:'fName',id:'fId',address:'fAddr',issue:'fIssue',birth:'fBirth',roles:'fRoles'},filled=[];
+  const map={name:'fName',id:'fId',address:'fAddr',issue:'fIssue',birth:'fBirth',roles:'fRoles'};
+  const filled=[];
   for(const k in map){if(d[k]&&!state.dirty[map[k]]){$(map[k]).value=d[k];filled.push(k.toUpperCase());}}
-  updatePreview();return filled;
+  updatePreview();
+  return filled;
 }
 
 /* ---------- LIVE PREVIEW SYNC ---------- */
 const FIELDS=['fName','fId','fAddr','fIssue','fBirth','fRoles'];
-function fitFS(text,base,max,min=16){const t=(text||'').length;return t>max?Math.max(min,Math.floor(base*max/t)):base;}
-function fitWidth(id,max){
-  const el=$(id);el.removeAttribute('textLength');el.removeAttribute('lengthAdjust');
-  if(el.getBBox().width>max){el.setAttribute('textLength',max);el.setAttribute('lengthAdjust','spacingAndGlyphs');}
-}
+function fitFS(text,base,max){const t=(text||'').length;return t>max?Math.max(13,Math.round(base*max/t)):base;}
 function updatePreview(){
-  const name=$('fName').value.trim().toUpperCase(),id=$('fId').value.trim(),
-        addr=$('fAddr').value.trim().toUpperCase(),issue=$('fIssue').value.trim().toUpperCase(),
-        birth=$('fBirth').value.trim().toUpperCase(),roles=$('fRoles').value.trim().toUpperCase();
-  $('tId').textContent=id||'—';$('tAddr').textContent=addr||'—';
-  $('tIssue').textContent=issue||'—';$('tBirth').textContent=birth||'—';
-  $('tName').textContent=name||'PLAYER NAME';$('tRoles').textContent=roles||'—';
-  const fs={tId:fitFS(id,30,9,20),tAddr:fitFS(addr,30,11,20),tIssue:fitFS(issue,30,9,20),tBirth:fitFS(birth,30,10,20),
-            tName:fitFS(name,64,10,30),tRoles:fitFS(roles,30,24,16)};
-  state.fs=fs;for(const k in fs)$(k).setAttribute('font-size',fs[k]);
-  fitWidth('tId',184);fitWidth('tAddr',193);fitWidth('tIssue',187);fitWidth('tBirth',210);fitWidth('tRoles',546);
+  const name=$('fName').value.trim().toUpperCase(), id=$('fId').value.trim(),
+        addr=$('fAddr').value.trim().toUpperCase(), issue=$('fIssue').value.trim().toUpperCase(),
+        birth=$('fBirth').value.trim().toUpperCase(), roles=$('fRoles').value.trim().toUpperCase();
+  $('tId').textContent=id||'—';
+  $('tAddr').textContent=addr||'—';
+  $('tIssue').textContent=issue||'—';
+  $('tBirth').textContent=birth||'—';
+  $('tName').textContent=name||'PLAYER NAME';
+  $('tRoles').textContent=roles||'—';
+  const fs={tId:fitFS(id,28,14),tAddr:fitFS(addr,26,16),tIssue:fitFS(issue,26,14),tBirth:fitFS(birth,26,14),
+            tName:fitFS(name,56,11),tRoles:fitFS(roles,22,26)};
+  state.fs=fs;
+  for(const k in fs)$(k).setAttribute('font-size',fs[k]);
   refreshQR();
 }
 function wireForm(){
@@ -345,77 +463,179 @@ function wireForm(){
 
 /* ---------- QR ---------- */
 function refreshQR(){
-  const show=$('showQr').checked,url=$('qrUrl').value.trim(),visible=show&&url?'visible':'hidden';
-  $('qrImg').setAttribute('visibility',visible);$('qrBg').setAttribute('visibility',visible);state.qrCanvas=null;
+  const show=$('showQr').checked, url=$('qrUrl').value.trim();
+  $('qrImg').setAttribute('visibility',(show&&url)?'visible':'hidden');
+  state.qrCanvas=null;
   if(!(show&&url&&window.QRCode))return;
   try{
     const holder=document.createElement('div');
-    new QRCode(holder,{text:url,width:256,height:256,colorDark:'#050505',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});
-    setTimeout(()=>{const c=holder.querySelector('canvas');if(c){state.qrCanvas=c;$('qrImg').setAttribute('href',c.toDataURL());}},60);
+    new QRCode(holder,{text:url,width:256,height:256,colorDark:'#093f40',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});
+    setTimeout(()=>{
+      const c=holder.querySelector('canvas');
+      if(c){state.qrCanvas=c;$('qrImg').setAttribute('href',c.toDataURL());}
+    },60);
   }catch(e){}
 }
 
 /* ---------- CANVAS EXPORT ---------- */
 function setLS(ctx,px){try{ctx.letterSpacing=px+'px';}catch(e){}}
-function drawVerticalText(ctx,id,x,y,weight,size,spacing=3){
-  ctx.save();ctx.translate(x,y);ctx.rotate(Math.PI/2);ctx.textAlign='left';ctx.textBaseline='alphabetic';
-  ctx.font=weight+' '+size+'px Orbitron';ctx.fillStyle='#f4fbff';setLS(ctx,spacing);
-  const el=$(id),text=el.textContent,target=+el.getAttribute('textLength'),measured=ctx.measureText(text).width;
-  if(target>0&&measured>0)ctx.scale(target/measured,1);
-  ctx.fillText(text,0,0);ctx.restore();setLS(ctx,0);
+function rr(ctx,x,y,w,h,r){
+  ctx.beginPath();ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();
+}
+function drawPhotoArt(ctx){
+  const pr=PHOTO_RECT;
+  ctx.save(); rr(ctx,pr.x,pr.y,pr.w,pr.h,pr.r); ctx.clip();
+  const sky=ctx.createLinearGradient(0,pr.y,0,pr.y+pr.h);
+  sky.addColorStop(0,'#c2e7ff');sky.addColorStop(.55,'#e6f6ff');sky.addColorStop(1,'#f4fdff');
+  ctx.fillStyle=sky; ctx.fillRect(pr.x,pr.y,pr.w,pr.h);
+  const sun=ctx.createRadialGradient(620,415,0,620,415,170);
+  sun.addColorStop(0,'rgba(255,255,255,.95)');sun.addColorStop(1,'rgba(255,255,255,0)');
+  ctx.fillStyle=sun; ctx.beginPath(); ctx.arc(620,415,170,0,7); ctx.fill();
+  ctx.fillStyle='#ffffff';
+  ctx.beginPath(); ctx.arc(620,420,100,0,7); ctx.fill();
+  ctx.beginPath(); ctx.arc(495,467,66,0,7); ctx.fill();
+  ctx.beginPath(); ctx.arc(757,477,56,0,7); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(620,507,152,52,0,0,7); ctx.fill();
+  ctx.fillStyle='#c5e083';
+  ctx.beginPath(); ctx.moveTo(256,1245);
+  ctx.quadraticCurveTo(550,1300,820,1315);
+  ctx.quadraticCurveTo(1080,1340,1267,1450);
+  ctx.lineTo(1267,1738); ctx.lineTo(256,1738); ctx.closePath(); ctx.fill();
+  ctx.fillStyle='#86a201';
+  ctx.beginPath(); ctx.moveTo(256,1530);
+  ctx.quadraticCurveTo(480,1410,760,1382);
+  ctx.quadraticCurveTo(1000,1380,1267,1440);
+  ctx.lineTo(1267,1738); ctx.lineTo(256,1738); ctx.closePath(); ctx.fill();
+  ctx.restore();
 }
 function drawCard(ctx,S){
   ctx.scale(S,S);
+  ctx.textBaseline='alphabetic';
+  /* 1) PHOTO (art or uploaded photo) — bottom layer */
+  const pr=PHOTO_RECT;
   if(state.photoImg){
-    const iw=state.photoImg.naturalWidth,ih=state.photoImg.naturalHeight,pr=PHOTO_RECT;
-    const sc=Math.max(pr.w/iw,pr.h/ih)*state.zoom,dw=iw*sc,dh=ih*sc;
-    const dx=pr.x+(pr.w-dw)/2+state.panX/100*pr.w,dy=pr.y+(pr.h-dh)/2+state.panY/100*pr.h;
-    ctx.save();ctx.clip(new Path2D(PHOTO_PATH));ctx.drawImage(state.photoImg,dx,dy,dw,dh);ctx.restore();
-    ctx.drawImage(state.frameImg,0,0,1410,2000);
-  }else ctx.drawImage(state.baseImg,0,0,1410,2000);
-  if($('showQr').checked&&state.qrCanvas){
-    ctx.fillStyle='#ffffff';ctx.fillRect(QR_BOX.x,QR_BOX.y,QR_BOX.s,QR_BOX.s);ctx.imageSmoothingEnabled=false;
-    ctx.drawImage(state.qrCanvas,QR_BOX.x+QR_BOX.pad,QR_BOX.y+QR_BOX.pad,QR_BOX.s-QR_BOX.pad*2,QR_BOX.s-QR_BOX.pad*2);ctx.imageSmoothingEnabled=true;
+    const iw=state.photoImg.naturalWidth, ih=state.photoImg.naturalHeight;
+    const sc=Math.max(pr.w/iw,pr.h/ih)*state.zoom;
+    const dw=iw*sc, dh=ih*sc;
+    const dx=pr.x+(pr.w-dw)/2 + state.panX/100*pr.w;
+    const dy=pr.y+(pr.h-dh)/2 + state.panY/100*pr.h;
+    ctx.save(); rr(ctx,pr.x,pr.y,pr.w,pr.h,pr.r); ctx.clip();
+    ctx.drawImage(state.photoImg,dx,dy,dw,dh); ctx.restore();
+  }else{
+    drawPhotoArt(ctx);
   }
-  drawVerticalText(ctx,'tId',1174,192,400,state.fs.tId||30,4);
-  drawVerticalText(ctx,'tAddr',1047,192,400,state.fs.tAddr||30);
-  drawVerticalText(ctx,'tIssue',1174,592,400,state.fs.tIssue||30);
-  drawVerticalText(ctx,'tBirth',1174,984,400,state.fs.tBirth||30);
-  ctx.textAlign='left';ctx.textBaseline='alphabetic';ctx.fillStyle='#f4fbff';
-  ctx.font='700 '+(state.fs.tName||64)+'px Orbitron';setLS(ctx,11.4);ctx.fillText($('tName').textContent,216,1759);setLS(ctx,0);
-  ctx.font='500 '+(state.fs.tRoles||30)+'px Orbitron';setLS(ctx,4);
-  const roleText=$('tRoles').textContent,roleTarget=+$('tRoles').getAttribute('textLength'),roleWidth=ctx.measureText(roleText).width;
-  ctx.save();ctx.translate(216,1832);if(roleTarget>0&&roleWidth>0)ctx.scale(roleTarget/roleWidth,1);ctx.fillText(roleText,0,0);ctx.restore();setLS(ctx,0);
+  /* 2) CYAN layer */
+  ctx.fillStyle=CYAN;
+  ctx.fill(new Path2D(P.cyan));
+  /* 3) TEAL layer */
+  ctx.fillStyle=TEAL;
+  ctx.fill(new Path2D(P.tealRight));
+  ctx.fill(new Path2D(P.tealBottom));
+  /* 4) QR on cyan top-left strip */
+  if($('showQr').checked&&state.qrCanvas){
+    ctx.fillStyle='#ffffff'; ctx.fillRect(QR_BOX.x-5,QR_BOX.y-5,QR_BOX.s+10,QR_BOX.s+10);
+    ctx.imageSmoothingEnabled=false;
+    ctx.drawImage(state.qrCanvas,QR_BOX.x,QR_BOX.y,QR_BOX.s,QR_BOX.s);
+    ctx.imageSmoothingEnabled=true;
+  }
+  /* 5) LOGO (official imgur logo, DG fallback) */
+  if(state.logoReady){
+    ctx.drawImage(state.logoImg,LOGO_BOX.x,LOGO_BOX.y,LOGO_BOX.w,LOGO_BOX.h);
+  }else{
+    ctx.strokeStyle='#9be8e4'; ctx.lineWidth=4;
+    ctx.beginPath(); ctx.arc(770,1630,50,0,7); ctx.stroke();
+    ctx.fillStyle='#ffffff'; ctx.font='900 38px Orbitron'; ctx.textAlign='center';
+    ctx.fillText('DG',770,1645);
+    ctx.fillStyle='#9be8e4'; ctx.font='700 15px Orbitron'; setLS(ctx,4);
+    ctx.fillText('DEXTEROUS',770,1722); setLS(ctx,0); ctx.textAlign='left';
+  }
+  /* 6) TEXTS */
+  ctx.save(); ctx.translate(232,1005); ctx.rotate(-Math.PI/2);
+  ctx.font='700 20px Orbitron'; setLS(ctx,4); ctx.textAlign='left';
+  ctx.fillStyle='#ffffff';
+  ctx.fillText('ESPORTS PLAYER',0,0); ctx.restore();
+  ctx.save(); ctx.translate(SIDE.tx,SIDE.ty); ctx.rotate(Math.PI/2);
+  ctx.textAlign='left';
+  SIDE.cols.forEach(c=>{
+    if(c.type==='lbl'){
+      ctx.font='500 18px Orbitron'; ctx.fillStyle='#9be8e4'; setLS(ctx,4);
+      ctx.fillText(c.text,c.x,0);
+    }else{
+      const fs=state.fs[c.id]||c.base;
+      ctx.font='700 '+fs+'px Orbitron'; ctx.fillStyle='#ffffff'; setLS(ctx,2);
+      ctx.fillText($(c.id).textContent,c.x,0);
+    }
+  });
+  ctx.restore(); setLS(ctx,0);
+  ctx.textAlign='left';
+  ctx.font='700 20px Orbitron'; ctx.fillStyle='#9be8e4'; setLS(ctx,8);
+  ctx.fillText('NAME',285,1612); setLS(ctx,0);
+  const nfs=state.fs.tName||56;
+  ctx.font='900 '+nfs+'px Orbitron'; ctx.fillStyle='#ffffff'; setLS(ctx,3);
+  ctx.fillText($('tName').textContent,285,1672); setLS(ctx,0);
+  const rfs=state.fs.tRoles||22;
+  ctx.font='600 '+rfs+'px Orbitron'; ctx.fillStyle='#bfefe9'; setLS(ctx,4);
+  ctx.fillText($('tRoles').textContent,285,1770); setLS(ctx,0);
 }
 async function downloadPNG(){
-  const st=$('dlStatus');st.textContent='Preparing fonts & rendering…';
+  const st=$('dlStatus');
+  st.textContent='Preparing fonts & rendering…';
   try{
-    await Promise.all([document.fonts.load('400 30px Orbitron','269754640'),document.fonts.load('500 64px Orbitron','REINAYANNE'),document.fonts.load('500 30px Orbitron','GOLD LANER')]);
-    await document.fonts.ready;await loadTemplateImages();
-    const SCALE=2,c=document.createElement('canvas');c.width=1410*SCALE;c.height=2000*SCALE;
-    drawCard(c.getContext('2d'),SCALE);
-    c.toBlob(blob=>{if(!blob){st.textContent='Export failed. Please try again.';return;}
-      const a=document.createElement('a');a.href=URL.createObjectURL(blob);
-      a.download='DGC-ID-'+($('fName').value.trim()||'PLAYER').replace(/\s+/g,'-')+'.png';document.body.appendChild(a);a.click();a.remove();
-      setTimeout(()=>URL.revokeObjectURL(a.href),4000);st.textContent='Done — transparent PNG downloaded (2820 × 4000).';},'image/png');
+    await Promise.all([
+      document.fonts.load('500 18px Orbitron','ID NUMBER'),
+      document.fonts.load('700 26px Orbitron','269754640'),
+      document.fonts.load('900 56px Orbitron','REINAYANNE'),
+      document.fonts.load('600 22px Orbitron','GOLD LANER')
+    ]);
+    await document.fonts.ready;
+    if(state.logoReady){try{await state.logoImg.decode();}catch(e){}}
+    const SCALE=2, c=document.createElement('canvas');
+    c.width=1410*SCALE; c.height=2000*SCALE;
+    const ctx=c.getContext('2d');
+    drawCard(ctx,SCALE);
+    c.toBlob(blob=>{
+      const a=document.createElement('a');
+      a.href=URL.createObjectURL(blob);
+      a.download='DGC-ID-'+($('fName').value.trim()||'PLAYER').replace(/\s+/g,'-')+'.png';
+      a.click();
+      setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+      st.textContent='Done — transparent PNG downloaded (2820 × 4000).';
+    },'image/png');
   }catch(err){st.textContent='Error: '+err.message;}
 }
 
 /* ---------- WIRING ---------- */
 window.addEventListener('DOMContentLoaded',()=>{
-  loadTemplateImages().catch(()=>{$('dlStatus').textContent='Template artwork could not be loaded.';});
-  wirePhoto();wireForm();
+  loadLogo();
+  wirePhoto();
+  wireForm();
+  const dz=$('docDrop'), inp=$('docInput');
+  dz.onclick=()=>inp.click();
+  inp.onchange=async e=>{
+    const f=e.target.files[0];inp.value='';if(!f)return;
+    const st=$('docStatus');st.textContent='Processing '+f.name+'…';
+    try{
+      const text=await handleDoc(f,st);
+      if(!text)throw new Error('No readable text found.');
+      const d=parseDetails(text);
+      const filled=applyParsed(d);
+      st.textContent=filled.length?('Extracted: '+filled.join(', ')+'. Please review the fields.'):'No recognized fields — please enter details manually or paste the text.';
+      $('pasteBox').value=text;
+    }catch(err){st.textContent=err.message;}
+  };
   $('parseBtn').onclick=()=>{
-    const t=$('pasteBox').value.trim(),st=$('docStatus');
-    if(!t){st.textContent='Insert the player details first.';return;}
-    const d=parseDetails(t),filled=applyParsed(d);
+    const t=$('pasteBox').value.trim(), st=$('docStatus');
+    if(!t){st.textContent='Paste the player details first.';return;}
+    const d=parseDetails(t), filled=applyParsed(d);
     st.textContent=filled.length?('Extracted: '+filled.join(', ')+'. Please review.'):'No recognized fields found.';
   };
   $('downloadBtn').onclick=downloadPNG;
   $('pvZoom').oninput=e=>{$('stage').style.transform='scale('+e.target.value+')';};
   $('stage').style.transform='scale(0.85)';
-  window.addEventListener('resize',renderPhoto);updatePreview();
-  document.fonts.ready.then(updatePreview);
+  window.addEventListener('resize',renderPhoto);
+  updatePreview();
 });
 </script>
 </body>
